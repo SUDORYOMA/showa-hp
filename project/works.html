@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>施工実績 | 株式会社昭波</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;600;700;800;900&family=Zen+Kaku+Gothic+New:wght@400;500;700;900&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { font-size: 16px; scroll-behavior: smooth; }
+body { background: #0c0c0d; color: #fff; font-family: 'Zen Kaku Gothic New', sans-serif; line-height: 1.6; -webkit-font-smoothing: antialiased; }
+a { color: inherit; text-decoration: none; }
+img { display: block; max-width: 100%; }
+
+/* Header */
+header {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 0 48px; height: 72px;
+  background: rgba(12,12,13,0.92); backdrop-filter: blur(12px);
+  border-bottom: 1px solid rgba(255,255,255,0.06);
+}
+.hdr-logo { font-family: 'Archivo', sans-serif; font-weight: 900; font-size: 20px; letter-spacing: 0.04em; color: #fff; }
+.hdr-logo span { color: #E60012; }
+nav { display: flex; align-items: center; gap: 36px; }
+nav a { font-size: 13px; font-weight: 500; letter-spacing: 0.06em; color: rgba(255,255,255,0.65); transition: color 0.2s; }
+nav a:hover, nav a.active { color: #fff; }
+nav a.active { border-bottom: 1px solid #E60012; padding-bottom: 2px; }
+.nav-cta {
+  background: #E60012; color: #fff !important; font-size: 12px !important; font-weight: 700 !important;
+  padding: 9px 20px; letter-spacing: 0.08em; transition: background 0.2s !important; border: none;
+}
+.nav-cta:hover { background: #c4000f !important; border-bottom: none !important; padding-bottom: 9px !important; }
+.nav-burger { display: none; flex-direction: column; gap: 5px; cursor: pointer; padding: 8px; background: none; border: none; }
+.nav-burger span { display: block; width: 22px; height: 2px; background: #fff; transition: all 0.3s; }
+
+/* Mobile menu */
+.mobile-menu {
+  position: fixed; top: 72px; left: 0; right: 0; z-index: 99;
+  background: rgba(12,12,13,0.98); backdrop-filter: blur(12px);
+  max-height: 0; overflow: hidden; transition: max-height 0.4s ease;
+  border-bottom: 1px solid rgba(255,255,255,0.06);
+}
+.mobile-menu.open { max-height: 400px; }
+.mobile-menu nav { flex-direction: column; align-items: flex-start; gap: 0; padding: 8px 0 16px; }
+.mobile-menu nav a { display: block; padding: 14px 24px; font-size: 14px; width: 100%; }
+.mobile-menu nav a.active { border-bottom: none; border-left: 2px solid #E60012; padding-left: 22px; padding-bottom: 14px; }
+.mobile-menu .nav-cta { margin: 8px 24px; padding: 12px 20px; width: calc(100% - 48px); text-align: center; }
+
+/* Page Banner */
+.page-banner {
+  height: 380px; position: relative; overflow: hidden;
+  display: flex; align-items: flex-end; padding-bottom: 60px;
+}
+.page-banner-bg {
+  position: absolute; inset: 0;
+  background: url('hero-2.png') center/cover no-repeat;
+}
+.page-banner-bg::after {
+  content: ''; position: absolute; inset: 0;
+  background: linear-gradient(to bottom, rgba(12,12,13,0.4) 0%, rgba(12,12,13,0.75) 100%);
+}
+.page-banner-content { position: relative; z-index: 1; padding: 0 48px; }
+.breadcrumb { display: flex; align-items: center; gap: 8px; font-size: 12px; color: rgba(255,255,255,0.5); margin-bottom: 12px; letter-spacing: 0.06em; }
+.breadcrumb a:hover { color: rgba(255,255,255,0.8); }
+.breadcrumb span { color: rgba(255,255,255,0.3); }
+.page-title { font-family: 'Archivo', sans-serif; font-weight: 900; font-size: 48px; letter-spacing: -0.01em; line-height: 1; margin-bottom: 10px; }
+.page-subtitle { font-size: 14px; color: rgba(255,255,255,0.6); letter-spacing: 0.08em; }
+
+/* Section Padding */
+.hdr-pad { padding: 0 48px; }
+.section-pad { padding: 80px 48px; }
+
+/* Section Label */
+.sec-label {
+  display: inline-flex; align-items: center; gap: 8px;
+  font-family: 'Archivo', sans-serif; font-weight: 700; font-size: 11px;
+  letter-spacing: 0.16em; color: #E60012; text-transform: uppercase; margin-bottom: 12px;
+}
+.sec-label::before { content: ''; display: block; width: 20px; height: 1px; background: #E60012; }
+.sec-heading { font-weight: 700; font-size: clamp(24px, 3vw, 32px); letter-spacing: -0.01em; margin-bottom: 8px; }
+.sec-sub { font-size: 14px; color: rgba(255,255,255,0.5); letter-spacing: 0.04em; }
+
+/* Filter Tabs */
+.filter-tabs { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 48px; }
+.filter-tab {
+  padding: 10px 24px; font-size: 13px; font-weight: 500; letter-spacing: 0.06em;
+  background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.1);
+  color: rgba(255,255,255,0.6); cursor: pointer; transition: all 0.2s;
+}
+.filter-tab:hover { background: rgba(255,255,255,0.1); color: #fff; }
+.filter-tab.active { background: #E60012; border-color: #E60012; color: #fff; }
+
+/* Works Grid */
+.works-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2px; }
+
+/* Work Card */
+.work-card { position: relative; overflow: hidden; aspect-ratio: 4/3; cursor: pointer; }
+.work-card-img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s ease; }
+.work-card:hover .work-card-img { transform: scale(1.06); }
+.work-card-overlay {
+  position: absolute; inset: 0;
+  background: linear-gradient(to top, rgba(12,12,13,0.92) 0%, rgba(12,12,13,0.3) 60%, transparent 100%);
+  display: flex; flex-direction: column; justify-content: flex-end; padding: 24px;
+  opacity: 0.85; transition: opacity 0.3s;
+}
+.work-card:hover .work-card-overlay { opacity: 1; }
+.work-card-badge {
+  display: inline-block; font-size: 10px; font-weight: 700; letter-spacing: 0.1em;
+  padding: 4px 10px; background: #E60012; color: #fff; text-transform: uppercase; margin-bottom: 8px; align-self: flex-start;
+}
+.work-card-badge.kaji { background: #1a6de0; }
+.work-card-badge.event { background: #16a34a; }
+.work-card-meta { font-size: 11px; color: rgba(255,255,255,0.5); margin-bottom: 4px; }
+.work-card-title { font-size: 15px; font-weight: 700; margin-bottom: 6px; line-height: 1.4; }
+.work-card-detail { font-size: 12px; color: rgba(255,255,255,0.6); }
+
+/* Reveal */
+.reveal { opacity: 0; transform: translateY(24px); transition: opacity 0.6s ease, transform 0.6s ease; }
+.reveal.visible { opacity: 1; transform: none; }
+
+/* CTA Section */
+.cta-section {
+  background: #E60012; padding: 80px 48px;
+  display: flex; align-items: center; justify-content: space-between; gap: 40px; flex-wrap: wrap;
+}
+.cta-section h2 { font-weight: 700; font-size: clamp(20px, 2.5vw, 28px); letter-spacing: -0.01em; }
+.cta-section p { font-size: 14px; color: rgba(255,255,255,0.8); margin-top: 8px; }
+.btn-white {
+  display: inline-flex; align-items: center; gap: 12px;
+  background: #fff; color: #E60012; font-family: 'Archivo', sans-serif;
+  font-weight: 700; font-size: 13px; letter-spacing: 0.1em; text-transform: uppercase;
+  padding: 16px 32px; white-space: nowrap; transition: all 0.2s;
+}
+.btn-white:hover { background: #0c0c0d; color: #fff; }
+.btn-white svg { flex-shrink: 0; }
+
+/* Footer */
+footer { background: #080809; border-top: 1px solid rgba(255,255,255,0.06); padding: 48px; }
+.footer-inner { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 24px; }
+.footer-logo { font-family: 'Archivo', sans-serif; font-weight: 900; font-size: 18px; letter-spacing: 0.04em; }
+.footer-logo span { color: #E60012; }
+.footer-info { font-size: 12px; color: rgba(255,255,255,0.35); line-height: 1.8; }
+.footer-copy { font-size: 11px; color: rgba(255,255,255,0.25); text-align: right; }
+
+@media (max-width: 1024px) {
+  header { padding: 0 24px; }
+  nav { display: none; }
+  .nav-burger { display: flex; }
+  .page-banner { height: 280px; padding-bottom: 40px; }
+  .page-banner-content { padding: 0 24px; }
+  .page-title { font-size: 36px; }
+  .section-pad { padding: 60px 24px; }
+  .works-grid { grid-template-columns: repeat(2, 1fr); }
+  .cta-section { padding: 60px 24px; flex-direction: column; align-items: flex-start; }
+  footer { padding: 40px 24px; }
+  .footer-inner { flex-direction: column; align-items: flex-start; }
+  .footer-copy { text-align: left; }
+}
+
+@media (max-width: 640px) {
+  .page-title { font-size: 28px; }
+  .works-grid { grid-template-columns: 1fr; }
+  .filter-tabs { gap: 6px; }
+  .filter-tab { padding: 8px 16px; font-size: 12px; }
+}
+</style>
+</head>
+<body>
+
+<header>
+  <a href="index.html" class="hdr-logo">SHO<span>HA</span></a>
+  <nav>
+    <a href="index.html">会社情報</a>
+    <a href="works.html" class="active">施工実績</a>
+    <a href="recruit.html">募集要項</a>
+    <a href="contact.html" class="nav-cta">お問い合わせ</a>
+  </nav>
+  <button class="nav-burger" onclick="toggleMenu()" aria-label="メニュー">
+    <span></span><span></span><span></span>
+  </button>
+</header>
+
+<div class="mobile-menu" id="mobileMenu">
+  <nav>
+    <a href="index.html" onclick="closeMenu()">会社情報</a>
+    <a href="works.html" class="active" onclick="closeMenu()">施工実績</a>
+    <a href="recruit.html" onclick="closeMenu()">募集要項</a>
+    <a href="contact.html" class="nav-cta" onclick="closeMenu()">お問い合わせ</a>
+  </nav>
+</div>
+
+<!-- Page Banner -->
+<section class="page-banner" style="margin-top:72px;">
+  <div class="page-banner-bg"></div>
+  <div class="page-banner-content">
+    <div class="breadcrumb">
+      <a href="index.html">TOP</a>
+      <span>/</span>
+      <span>施工実績</span>
+    </div>
+    <h1 class="page-title">施工実績</h1>
+    <p class="page-subtitle">CONSTRUCTION WORKS</p>
+  </div>
+</section>
+
+<!-- Works Section -->
+<section class="section-pad">
+  <div class="reveal" style="margin-bottom:48px;">
+    <div class="sec-label">Works</div>
+    <h2 class="sec-heading">現場の実績</h2>
+    <p class="sec-sub">足場・鳶工事から鍛冶・溶接、イベント設営まで幅広い実績があります。</p>
+  </div>
+
+  <div class="filter-tabs reveal">
+    <button class="filter-tab active" data-filter="all" onclick="filterWorks(this, 'all')">すべて</button>
+    <button class="filter-tab" data-filter="scaffold" onclick="filterWorks(this, 'scaffold')">足場・鳶事業</button>
+    <button class="filter-tab" data-filter="kaji" onclick="filterWorks(this, 'kaji')">鍛冶事業</button>
+    <button class="filter-tab" data-filter="event" onclick="filterWorks(this, 'event')">イベント事業</button>
+  </div>
+
+  <div class="works-grid" id="worksGrid">
+    <div class="work-card reveal" data-category="scaffold">
+      <img class="work-card-img" src="hero-2.png" alt="製鉄所定期修繕 足場工事">
+      <div class="work-card-overlay">
+        <span class="work-card-badge">足場・鳶</span>
+        <p class="work-card-meta">2025.09 ｜ 君津市</p>
+        <h3 class="work-card-title">製鉄所定期修繕 足場工事一式</h3>
+        <p class="work-card-detail">動員 30名</p>
+      </div>
+    </div>
+
+    <div class="work-card reveal" data-category="scaffold">
+      <img class="work-card-img" src="hero-1.png" alt="化学工場タンク 足場工事">
+      <div class="work-card-overlay">
+        <span class="work-card-badge">足場・鳶</span>
+        <p class="work-card-meta">2025.06 ｜ 市原市</p>
+        <h3 class="work-card-title">化学工場タンク 足場工事一式請負</h3>
+        <p class="work-card-detail">1,200工数</p>
+      </div>
+    </div>
+
+    <div class="work-card reveal" data-category="kaji">
+      <img class="work-card-img" src="hero-3.png" alt="プラント配管・鉄骨溶接工事">
+      <div class="work-card-overlay">
+        <span class="work-card-badge kaji">鍛冶</span>
+        <p class="work-card-meta">2025.07 ｜ 袖ケ浦市</p>
+        <h3 class="work-card-title">プラント配管・鉄骨溶接工事</h3>
+        <p class="work-card-detail">動員 15名</p>
+      </div>
+    </div>
+
+    <div class="work-card reveal" data-category="event">
+      <img class="work-card-img" src="hero-2.png" alt="屋外イベントステージ設営・撤去">
+      <div class="work-card-overlay">
+        <span class="work-card-badge event">イベント</span>
+        <p class="work-card-meta">2025.08 ｜ 千葉市</p>
+        <h3 class="work-card-title">屋外イベントステージ設営・撤去</h3>
+        <p class="work-card-detail">動員 20名</p>
+      </div>
+    </div>
+
+    <div class="work-card reveal" data-category="scaffold">
+      <img class="work-card-img" src="hero-1.png" alt="建築改修外部足場工事">
+      <div class="work-card-overlay">
+        <span class="work-card-badge">足場・鳶</span>
+        <p class="work-card-meta">2025.04 ｜ 木更津市</p>
+        <h3 class="work-card-title">建築改修外部足場工事</h3>
+        <p class="work-card-detail">600工数</p>
+      </div>
+    </div>
+
+    <div class="work-card reveal" data-category="scaffold">
+      <img class="work-card-img" src="hero-2.png" alt="橋梁メンテナンス吊り足場">
+      <div class="work-card-overlay">
+        <span class="work-card-badge">足場・鳶</span>
+        <p class="work-card-meta">2024.11 ｜ 君津市</p>
+        <h3 class="work-card-title">橋梁メンテナンス吊り足場</h3>
+        <p class="work-card-detail">動員 12名</p>
+      </div>
+    </div>
+
+    <div class="work-card reveal" data-category="kaji">
+      <img class="work-card-img" src="hero-3.png" alt="製鉄所現場溶断・鉄骨撤去">
+      <div class="work-card-overlay">
+        <span class="work-card-badge kaji">鍛冶</span>
+        <p class="work-card-meta">2024.10 ｜ 君津市</p>
+        <h3 class="work-card-title">製鉄所現場溶断・鉄骨撤去</h3>
+        <p class="work-card-detail">動員 18名</p>
+      </div>
+    </div>
+
+    <div class="work-card reveal" data-category="event">
+      <img class="work-card-img" src="hero-1.png" alt="屋外フェス会場設営一式">
+      <div class="work-card-overlay">
+        <span class="work-card-badge event">イベント</span>
+        <p class="work-card-meta">2024.09 ｜ 千葉市</p>
+        <h3 class="work-card-title">屋外フェス会場設営一式</h3>
+        <p class="work-card-detail">動員 25名</p>
+      </div>
+    </div>
+
+    <div class="work-card reveal" data-category="scaffold">
+      <img class="work-card-img" src="hero-2.png" alt="タンク廻り枠組足場工事">
+      <div class="work-card-overlay">
+        <span class="work-card-badge">足場・鳶</span>
+        <p class="work-card-meta">2024.06 ｜ 市原市</p>
+        <h3 class="work-card-title">タンク廻り枠組足場工事</h3>
+        <p class="work-card-detail">900工数</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta-section">
+  <div>
+    <h2>現場のご相談・お見積もりはお気軽に。</h2>
+    <p>足場工事・鍛冶溶接・イベント設営 — まずはお問い合わせください。</p>
+  </div>
+  <a href="contact.html" class="btn-white">
+    お問い合わせはこちら
+    <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+  </a>
+</section>
+
+<!-- Footer -->
+<footer>
+  <div class="footer-inner">
+    <div>
+      <div class="footer-logo">SHO<span>HA</span></div>
+      <div class="footer-info" style="margin-top:12px;">
+        株式会社昭波<br>
+        〒299-0009 千葉県木更津市金田東6-31-8 フレラックス木更津<br>
+        TEL: 0438-53-6065
+      </div>
+    </div>
+    <div class="footer-copy">
+      © 2025 株式会社昭波. All rights reserved.
+    </div>
+  </div>
+</footer>
+
+<script>
+function toggleMenu() {
+  document.getElementById('mobileMenu').classList.toggle('open');
+}
+function closeMenu() {
+  document.getElementById('mobileMenu').classList.remove('open');
+}
+
+// Filter works
+function filterWorks(btn, category) {
+  document.querySelectorAll('.filter-tab').forEach(t => t.classList.remove('active'));
+  btn.classList.add('active');
+  document.querySelectorAll('.work-card').forEach(card => {
+    if (category === 'all' || card.dataset.category === category) {
+      card.style.display = '';
+    } else {
+      card.style.display = 'none';
+    }
+  });
+}
+
+// Scroll reveal
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); observer.unobserve(e.target); } });
+}, { threshold: 0.1 });
+document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+</script>
+</body>
+</html>
