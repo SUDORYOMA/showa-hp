@@ -1,0 +1,439 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>募集要項 | 株式会社昭波</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;600;700;800;900&family=Zen+Kaku+Gothic+New:wght@400;500;700;900&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { font-size: 16px; scroll-behavior: smooth; }
+body { background: #0c0c0d; color: #fff; font-family: 'Zen Kaku Gothic New', sans-serif; line-height: 1.6; -webkit-font-smoothing: antialiased; }
+a { color: inherit; text-decoration: none; }
+img { display: block; max-width: 100%; }
+
+/* Header */
+header {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 0 48px; height: 72px;
+  background: rgba(12,12,13,0.92); backdrop-filter: blur(12px);
+  border-bottom: 1px solid rgba(255,255,255,0.06);
+}
+.hdr-logo { font-family: 'Archivo', sans-serif; font-weight: 900; font-size: 20px; letter-spacing: 0.04em; color: #fff; }
+.hdr-logo span { color: #E60012; }
+nav { display: flex; align-items: center; gap: 36px; }
+nav a { font-size: 13px; font-weight: 500; letter-spacing: 0.06em; color: rgba(255,255,255,0.65); transition: color 0.2s; }
+nav a:hover, nav a.active { color: #fff; }
+nav a.active { color: #E60012; font-weight: 700; }
+.nav-cta {
+  background: #E60012; color: #fff !important; font-size: 12px !important; font-weight: 700 !important;
+  padding: 9px 20px; letter-spacing: 0.08em; transition: background 0.2s !important;
+}
+.nav-cta:hover { background: #c4000f !important; }
+.nav-burger { display: none; flex-direction: column; gap: 5px; cursor: pointer; padding: 8px; background: none; border: none; }
+.nav-burger span { display: block; width: 22px; height: 2px; background: #fff; }
+
+/* Mobile menu */
+.mobile-menu {
+  position: fixed; top: 72px; left: 0; right: 0; z-index: 99;
+  background: rgba(12,12,13,0.98); backdrop-filter: blur(12px);
+  max-height: 0; overflow: hidden; transition: max-height 0.4s ease;
+  border-bottom: 1px solid rgba(255,255,255,0.06);
+}
+.mobile-menu.open { max-height: 400px; }
+.mobile-menu nav { flex-direction: column; align-items: flex-start; gap: 0; padding: 8px 0 16px; }
+.mobile-menu nav a { display: block; padding: 14px 24px; font-size: 14px; width: 100%; }
+.mobile-menu nav a.active { color: #E60012; border-left: 2px solid #E60012; padding-left: 22px; }
+.mobile-menu .nav-cta { margin: 8px 24px; padding: 12px 20px; width: calc(100% - 48px); text-align: center; }
+
+/* Page Banner */
+.page-banner {
+  height: 380px; position: relative; overflow: hidden;
+  display: flex; align-items: flex-end; padding-bottom: 60px;
+  margin-top: 72px;
+}
+.page-banner-bg {
+  position: absolute; inset: 0;
+  background: repeating-linear-gradient(128deg, #161619 0 22px, #121214 22px 44px);
+}
+.page-banner-bg::after {
+  content: ''; position: absolute; inset: 0;
+  background: linear-gradient(180deg, rgba(8,8,9,0.55) 0%, rgba(8,8,9,0.92) 100%);
+}
+.page-banner-accent { position: absolute; left: 0; top: 0; bottom: 0; width: 6px; background: #E60012; }
+.page-banner-bg-text {
+  position: absolute; top: 80px; right: 48px;
+  font-family: 'Archivo', sans-serif; font-weight: 900; font-size: clamp(60px, 11vw, 150px);
+  color: rgba(255,255,255,0.04); letter-spacing: -2px; line-height: 1; pointer-events: none;
+}
+.page-banner-content { position: relative; z-index: 1; padding: 0 48px; width: 100%; }
+.breadcrumb { display: flex; align-items: center; gap: 8px; font-size: 12px; color: rgba(255,255,255,0.5); margin-bottom: 14px; letter-spacing: 0.06em; }
+.breadcrumb a:hover { color: rgba(255,255,255,0.8); }
+.breadcrumb-sep { color: rgba(255,255,255,0.3); }
+.banner-en { font-family: 'Archivo', sans-serif; font-weight: 900; font-size: 14px; letter-spacing: 6px; color: #E60012; margin-bottom: 10px; }
+.page-title { font-weight: 900; font-size: clamp(38px, 6vw, 72px); letter-spacing: -0.01em; line-height: 1.06; margin-bottom: 14px; }
+.page-subtitle { font-size: 15px; color: rgba(255,255,255,0.75); max-width: 560px; }
+
+/* Section Padding */
+.section-pad { padding: 80px 48px; }
+.section-inner { max-width: 1060px; margin: 0 auto; }
+.section-inner-wide { max-width: 1320px; margin: 0 auto; }
+
+/* Section Label */
+.sec-label {
+  display: flex; align-items: center; gap: 13px; margin-bottom: 36px;
+}
+.sec-label::before { content: ''; display: block; width: 34px; height: 2px; background: #E60012; flex-shrink: 0; }
+.sec-label span { font-family: 'Archivo', sans-serif; font-weight: 700; font-size: 11px; letter-spacing: 3px; color: #E60012; text-transform: uppercase; }
+
+/* Job Card */
+.job-card {
+  background: #141416; border: 1px solid rgba(255,255,255,0.09);
+  margin-bottom: 24px;
+}
+.job-card:last-child { margin-bottom: 0; }
+.job-header {
+  display: flex; align-items: center; gap: 18px;
+  padding: 26px 30px; border-bottom: 1px solid rgba(255,255,255,0.09);
+}
+.job-no { font-family: 'Archivo', sans-serif; font-weight: 900; font-size: 30px; color: #E60012; line-height: 1; }
+.job-title { font-weight: 900; font-size: 24px; }
+.job-body { padding: 8px 30px 22px; }
+.job-row {
+  display: grid; grid-template-columns: 160px 1fr; gap: 20px;
+  padding: 17px 0; border-bottom: 1px solid rgba(255,255,255,0.07);
+}
+.job-row:last-child { border-bottom: none; }
+.job-row-key { font-size: 13px; font-weight: 700; color: #E60012; }
+.job-row-val { font-size: 14.5px; line-height: 1.8; color: rgba(255,255,255,0.86); }
+
+/* Merits Grid */
+.merits-section { background: #141416; padding: 80px 48px; }
+.merits-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; }
+.merit-card {
+  padding: 30px 24px;
+  background: rgba(255,255,255,0.03);
+  border-top: 3px solid #E60012;
+  border-left: 1px solid rgba(255,255,255,0.08);
+  border-right: 1px solid rgba(255,255,255,0.08);
+  border-bottom: 1px solid rgba(255,255,255,0.08);
+}
+.merit-en { font-family: 'Archivo', sans-serif; font-weight: 800; font-size: 11px; letter-spacing: 2px; color: rgba(255,255,255,0.3); }
+.merit-title { font-weight: 900; font-size: 19px; margin: 12px 0 10px; }
+.merit-desc { font-size: 13.5px; line-height: 1.85; color: rgba(255,255,255,0.55); }
+
+/* Flow Grid */
+.flow-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; }
+.flow-card { padding: 28px 26px; background: #141416; border: 1px solid rgba(255,255,255,0.09); }
+.flow-step { font-family: 'Archivo', sans-serif; font-weight: 900; font-size: 13px; letter-spacing: 2px; color: #E60012; margin-bottom: 12px; }
+.flow-title { font-weight: 900; font-size: 20px; margin-bottom: 8px; }
+.flow-desc { font-size: 13px; line-height: 1.8; color: rgba(255,255,255,0.55); }
+
+/* CTA */
+.cta-section { background: #E60012; padding: 80px 48px; text-align: center; }
+.cta-section h2 { font-weight: 900; font-size: clamp(30px, 4.4vw, 54px); line-height: 1.12; margin-bottom: 18px; }
+.cta-section p { font-size: 15px; color: rgba(255,255,255,0.9); margin-bottom: 36px; }
+.btn-dark {
+  display: inline-flex; align-items: center; gap: 14px;
+  padding: 21px 64px; background: #0c0c0d; color: #fff;
+  font-weight: 700; font-size: 17px; transition: background 0.2s;
+}
+.btn-dark:hover { background: #161619; }
+.btn-dark-arrow { font-family: 'Archivo', sans-serif; }
+
+/* Reveal */
+.reveal { opacity: 0; transform: translateY(24px); transition: opacity 0.6s ease, transform 0.6s ease; }
+.reveal.visible { opacity: 1; transform: none; }
+
+/* Footer */
+footer { background: #08080a; border-top: 1px solid rgba(255,255,255,0.06); padding: 48px; }
+.footer-inner { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 24px; }
+.footer-logo { font-family: 'Archivo', sans-serif; font-weight: 900; font-size: 18px; letter-spacing: 0.04em; }
+.footer-logo span { color: #E60012; }
+.footer-copy { font-size: 11px; color: rgba(255,255,255,0.25); }
+
+@media (max-width: 1024px) {
+  header { padding: 0 24px; }
+  nav { display: none; }
+  .nav-burger { display: flex; }
+  .page-banner { height: 300px; padding-bottom: 40px; }
+  .page-banner-content { padding: 0 24px; }
+  .page-title { font-size: 40px; }
+  .section-pad { padding: 60px 24px; }
+  .merits-section { padding: 60px 24px; }
+  .merits-grid { grid-template-columns: repeat(2, 1fr); }
+  .flow-grid { grid-template-columns: repeat(2, 1fr); }
+  .cta-section { padding: 60px 24px; }
+  footer { padding: 40px 24px; }
+  .footer-inner { flex-direction: column; align-items: flex-start; }
+}
+
+@media (max-width: 640px) {
+  .page-title { font-size: 32px; }
+  .job-row { grid-template-columns: 1fr; gap: 3px; }
+  .job-row-key { font-size: 12px; }
+  .merits-grid { grid-template-columns: 1fr; }
+  .flow-grid { grid-template-columns: 1fr; }
+  .btn-dark { padding: 18px 36px; font-size: 15px; }
+}
+</style>
+</head>
+<body>
+
+<header>
+  <a href="index.html" class="hdr-logo">SHO<span>HA</span></a>
+  <nav>
+    <a href="index.html">会社情報</a>
+    <a href="works.html">施工実績</a>
+    <a href="recruit.html" class="active">募集要項</a>
+    <a href="contact.html" class="nav-cta">お問い合わせ</a>
+  </nav>
+  <button class="nav-burger" onclick="toggleMenu()" aria-label="メニュー">
+    <span></span><span></span><span></span>
+  </button>
+</header>
+
+<div class="mobile-menu" id="mobileMenu">
+  <nav>
+    <a href="index.html" onclick="closeMenu()">会社情報</a>
+    <a href="works.html" onclick="closeMenu()">施工実績</a>
+    <a href="recruit.html" class="active" onclick="closeMenu()">募集要項</a>
+    <a href="contact.html" class="nav-cta" onclick="closeMenu()">お問い合わせ</a>
+  </nav>
+</div>
+
+<!-- Page Banner -->
+<div class="page-banner">
+  <div class="page-banner-bg"></div>
+  <div class="page-banner-accent"></div>
+  <div class="page-banner-bg-text">RECRUIT</div>
+  <div class="page-banner-content">
+    <div class="breadcrumb">
+      <a href="index.html">TOP</a>
+      <span class="breadcrumb-sep">/</span>
+      <span>RECRUIT</span>
+    </div>
+    <p class="banner-en">RECRUIT</p>
+    <h1 class="page-title">募集要項</h1>
+    <p class="page-subtitle">未経験から、一流の職人へ。やる気と人柄を重視し、先輩社員が丁寧にサポートします。</p>
+  </div>
+</div>
+
+<!-- Job Details -->
+<section class="section-pad">
+  <div class="section-inner">
+    <div class="sec-label reveal"><span>JOB DESCRIPTION</span></div>
+
+    <div class="job-card reveal">
+      <div class="job-header">
+        <span class="job-no">01</span>
+        <h2 class="job-title">足場・鳶スタッフ</h2>
+      </div>
+      <div class="job-body">
+        <div class="job-row">
+          <span class="job-row-key">仕事内容</span>
+          <span class="job-row-val">プラント・建築・改修現場での足場の組立・解体、鳶工事全般。</span>
+        </div>
+        <div class="job-row">
+          <span class="job-row-key">雇用形態</span>
+          <span class="job-row-val">正社員（試用期間3ヶ月）</span>
+        </div>
+        <div class="job-row">
+          <span class="job-row-key">給与</span>
+          <span class="job-row-val">日給10,000円〜／月給250,000円〜（経験・能力により優遇）＋各種手当</span>
+        </div>
+        <div class="job-row">
+          <span class="job-row-key">勤務時間</span>
+          <span class="job-row-val">8:00〜17:00（現場により変動／直行直帰あり）</span>
+        </div>
+        <div class="job-row">
+          <span class="job-row-key">休日・休暇</span>
+          <span class="job-row-val">日曜・隔週土曜、GW・夏季・年末年始休暇</span>
+        </div>
+        <div class="job-row">
+          <span class="job-row-key">待遇・福利厚生</span>
+          <span class="job-row-val">各種社会保険完備／資格取得支援制度／交通費支給／賞与年2回／昇給あり</span>
+        </div>
+        <div class="job-row">
+          <span class="job-row-key">応募資格</span>
+          <span class="job-row-val">未経験者歓迎／要普通自動車免許（AT可）／学歴不問</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="job-card reveal">
+      <div class="job-header">
+        <span class="job-no">02</span>
+        <h2 class="job-title">鍛冶工スタッフ</h2>
+      </div>
+      <div class="job-body">
+        <div class="job-row">
+          <span class="job-row-key">仕事内容</span>
+          <span class="job-row-val">溶接・溶断・鉄骨加工など、現場に必要な鍛冶工事全般。</span>
+        </div>
+        <div class="job-row">
+          <span class="job-row-key">雇用形態</span>
+          <span class="job-row-val">正社員（試用期間3ヶ月）</span>
+        </div>
+        <div class="job-row">
+          <span class="job-row-key">給与</span>
+          <span class="job-row-val">日給10,000円〜／月給250,000円〜（経験・能力により優遇）＋各種手当</span>
+        </div>
+        <div class="job-row">
+          <span class="job-row-key">勤務時間</span>
+          <span class="job-row-val">8:00〜17:00（現場により変動／直行直帰あり）</span>
+        </div>
+        <div class="job-row">
+          <span class="job-row-key">休日・休暇</span>
+          <span class="job-row-val">日曜・隔週土曜、GW・夏季・年末年始休暇</span>
+        </div>
+        <div class="job-row">
+          <span class="job-row-key">待遇・福利厚生</span>
+          <span class="job-row-val">各種社会保険完備／資格取得支援制度／交通費支給／賞与年2回／昇給あり</span>
+        </div>
+        <div class="job-row">
+          <span class="job-row-key">応募資格</span>
+          <span class="job-row-val">未経験者歓迎／要普通自動車免許（AT可）／学歴不問</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="job-card reveal">
+      <div class="job-header">
+        <span class="job-no">03</span>
+        <h2 class="job-title">イベント設営スタッフ</h2>
+      </div>
+      <div class="job-body">
+        <div class="job-row">
+          <span class="job-row-key">仕事内容</span>
+          <span class="job-row-val">イベント会場・ステージの設営および撤去、運営サポート。</span>
+        </div>
+        <div class="job-row">
+          <span class="job-row-key">雇用形態</span>
+          <span class="job-row-val">正社員（試用期間3ヶ月）</span>
+        </div>
+        <div class="job-row">
+          <span class="job-row-key">給与</span>
+          <span class="job-row-val">日給10,000円〜／月給250,000円〜（経験・能力により優遇）＋各種手当</span>
+        </div>
+        <div class="job-row">
+          <span class="job-row-key">勤務時間</span>
+          <span class="job-row-val">8:00〜17:00（現場により変動／直行直帰あり）</span>
+        </div>
+        <div class="job-row">
+          <span class="job-row-key">休日・休暇</span>
+          <span class="job-row-val">日曜・隔週土曜、GW・夏季・年末年始休暇</span>
+        </div>
+        <div class="job-row">
+          <span class="job-row-key">待遇・福利厚生</span>
+          <span class="job-row-val">各種社会保険完備／資格取得支援制度／交通費支給／賞与年2回／昇給あり</span>
+        </div>
+        <div class="job-row">
+          <span class="job-row-key">応募資格</span>
+          <span class="job-row-val">未経験者歓迎／要普通自動車免許（AT可）／学歴不問</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Merits -->
+<section class="merits-section">
+  <div class="section-inner-wide">
+    <div class="sec-label reveal"><span>WHY SHOWA</span></div>
+    <div class="merits-grid">
+      <div class="merit-card reveal">
+        <p class="merit-en">SUPPORT</p>
+        <h3 class="merit-title">資格取得支援制度</h3>
+        <p class="merit-desc">必要な資格取得を全面サポート。費用面でも会社が後押しします。</p>
+      </div>
+      <div class="merit-card reveal">
+        <p class="merit-en">YOUNG</p>
+        <h3 class="merit-title">若手活躍中</h3>
+        <p class="merit-desc">20代・30代中心の職場環境。年齢の近い仲間と働けます。</p>
+      </div>
+      <div class="merit-card reveal">
+        <p class="merit-en">CAREER</p>
+        <h3 class="merit-title">キャリアアップ</h3>
+        <p class="merit-desc">努力と成果を正当に評価。実力次第で着実に昇進できます。</p>
+      </div>
+      <div class="merit-card reveal">
+        <p class="merit-en">STABLE</p>
+        <h3 class="merit-title">安定した仕事量</h3>
+        <p class="merit-desc">年間を通して豊富な案件。安定して働き続けられます。</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Flow -->
+<section class="section-pad">
+  <div class="section-inner-wide">
+    <div class="sec-label reveal"><span>FLOW</span></div>
+    <div class="flow-grid">
+      <div class="flow-card reveal">
+        <p class="flow-step">STEP 01</p>
+        <h3 class="flow-title">エントリー</h3>
+        <p class="flow-desc">お問い合わせフォームよりご応募ください。</p>
+      </div>
+      <div class="flow-card reveal">
+        <p class="flow-step">STEP 02</p>
+        <h3 class="flow-title">面接</h3>
+        <p class="flow-desc">履歴書をご持参のうえ面接。現場見学も可能です。</p>
+      </div>
+      <div class="flow-card reveal">
+        <p class="flow-step">STEP 03</p>
+        <h3 class="flow-title">内定</h3>
+        <p class="flow-desc">選考結果を1週間以内にご連絡します。</p>
+      </div>
+      <div class="flow-card reveal">
+        <p class="flow-step">STEP 04</p>
+        <h3 class="flow-title">入社</h3>
+        <p class="flow-desc">先輩がマンツーマンで丁寧に指導します。</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta-section">
+  <h2>まずは話を聞いてみませんか。</h2>
+  <p>ご応募・ご質問は、お問い合わせフォームよりお気軽にどうぞ。</p>
+  <a href="contact.html#recruit" class="btn-dark">
+    応募・お問い合わせ <span class="btn-dark-arrow">→</span>
+  </a>
+</section>
+
+<!-- Footer -->
+<footer>
+  <div class="footer-inner">
+    <div>
+      <div class="footer-logo">SHO<span>HA</span></div>
+      <div style="font-size:12px;color:rgba(255,255,255,0.35);line-height:1.8;margin-top:12px;">
+        株式会社昭波<br>
+        〒299-0009 千葉県木更津市金田東6-31-8 フレラックス木更津<br>
+        TEL: 0438-53-6065
+      </div>
+    </div>
+    <div class="footer-copy">© 2025 株式会社昭波. All rights reserved.</div>
+  </div>
+</footer>
+
+<script>
+function toggleMenu() {
+  document.getElementById('mobileMenu').classList.toggle('open');
+}
+function closeMenu() {
+  document.getElementById('mobileMenu').classList.remove('open');
+}
+
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); observer.unobserve(e.target); } });
+}, { threshold: 0.1 });
+document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+</script>
+</body>
+</html>

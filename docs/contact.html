@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>お問い合わせ | 株式会社昭波</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;600;700;800;900&family=Zen+Kaku+Gothic+New:wght@400;500;700;900&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { font-size: 16px; scroll-behavior: smooth; }
+body { background: #0c0c0d; color: #fff; font-family: 'Zen Kaku Gothic New', sans-serif; line-height: 1.6; -webkit-font-smoothing: antialiased; }
+a { color: inherit; text-decoration: none; }
+img { display: block; max-width: 100%; }
+::selection { background: #E60012; color: #fff; }
+input::placeholder, textarea::placeholder { color: #6a6a6f; }
+
+/* Header */
+header {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 0 48px; height: 72px;
+  background: rgba(12,12,13,0.92); backdrop-filter: blur(12px);
+  border-bottom: 1px solid rgba(255,255,255,0.06);
+}
+.hdr-logo { font-family: 'Archivo', sans-serif; font-weight: 900; font-size: 20px; letter-spacing: 0.04em; color: #fff; }
+.hdr-logo span { color: #E60012; }
+nav { display: flex; align-items: center; gap: 36px; }
+nav a { font-size: 13px; font-weight: 500; letter-spacing: 0.06em; color: rgba(255,255,255,0.65); transition: color 0.2s; }
+nav a:hover { color: #fff; }
+.nav-cta {
+  background: #E60012; color: #fff !important; font-size: 12px !important; font-weight: 700 !important;
+  padding: 9px 20px; letter-spacing: 0.08em; transition: background 0.2s !important;
+}
+.nav-cta:hover { background: #c4000f !important; }
+.nav-burger { display: none; flex-direction: column; gap: 5px; cursor: pointer; padding: 8px; background: none; border: none; }
+.nav-burger span { display: block; width: 22px; height: 2px; background: #fff; }
+
+/* Mobile menu */
+.mobile-menu {
+  position: fixed; top: 72px; left: 0; right: 0; z-index: 99;
+  background: rgba(12,12,13,0.98); backdrop-filter: blur(12px);
+  max-height: 0; overflow: hidden; transition: max-height 0.4s ease;
+  border-bottom: 1px solid rgba(255,255,255,0.06);
+}
+.mobile-menu.open { max-height: 400px; }
+.mobile-menu nav { flex-direction: column; align-items: flex-start; gap: 0; padding: 8px 0 16px; }
+.mobile-menu nav a { display: block; padding: 14px 24px; font-size: 14px; width: 100%; }
+.mobile-menu .nav-cta { margin: 8px 24px; padding: 12px 20px; width: calc(100% - 48px); text-align: center; }
+
+/* Page Banner */
+.page-banner {
+  height: 340px; position: relative; overflow: hidden;
+  display: flex; align-items: flex-end; padding-bottom: 44px;
+  margin-top: 72px;
+}
+.page-banner-bg {
+  position: absolute; inset: 0;
+  background: repeating-linear-gradient(128deg, #161619 0 22px, #121214 22px 44px);
+}
+.page-banner-bg::after {
+  content: ''; position: absolute; inset: 0;
+  background: linear-gradient(180deg, rgba(8,8,9,0.55) 0%, rgba(8,8,9,0.92) 100%);
+}
+.page-banner-accent { position: absolute; left: 0; top: 0; bottom: 0; width: 6px; background: #E60012; }
+.page-banner-bg-text {
+  position: absolute; top: 80px; right: 48px;
+  font-family: 'Archivo', sans-serif; font-weight: 900; font-size: clamp(60px, 11vw, 150px);
+  color: rgba(255,255,255,0.04); letter-spacing: -2px; line-height: 1; pointer-events: none;
+}
+.page-banner-content { position: relative; z-index: 1; padding: 0 48px; width: 100%; max-width: 1320px; margin: 0 auto; }
+.breadcrumb { display: flex; align-items: center; gap: 8px; font-size: 12px; color: rgba(255,255,255,0.5); margin-bottom: 14px; letter-spacing: 0.06em; }
+.breadcrumb a:hover { color: rgba(255,255,255,0.8); }
+.breadcrumb-sep { color: rgba(255,255,255,0.3); }
+.banner-en { font-family: 'Archivo', sans-serif; font-weight: 900; font-size: 14px; letter-spacing: 6px; color: #E60012; margin-bottom: 10px; }
+.page-title { font-weight: 900; font-size: clamp(38px, 6vw, 72px); letter-spacing: -0.01em; line-height: 1.06; margin-bottom: 14px; }
+.page-subtitle { font-size: 15px; color: rgba(255,255,255,0.75); max-width: 560px; }
+
+/* Form Section */
+.form-section { padding: 72px 48px 100px; }
+.form-section-inner {
+  max-width: 1200px; margin: 0 auto;
+  display: grid; grid-template-columns: 1fr 360px; gap: 56px; align-items: start;
+}
+
+/* Form */
+form { display: flex; flex-direction: column; gap: 26px; }
+.field-label { display: block; font-size: 13px; font-weight: 700; color: rgba(255,255,255,0.86); margin-bottom: 10px; }
+.field-required { color: #E60012; margin-left: 4px; }
+.field-input {
+  width: 100%; padding: 15px 16px;
+  background: #141416; border: 1px solid rgba(255,255,255,0.14);
+  color: #fff; font-size: 15px; font-family: inherit;
+  transition: border-color 0.2s; outline: none;
+}
+.field-input:focus { border-color: #E60012; }
+.field-input.error { border-color: #ff5666; }
+select.field-input { appearance: none; cursor: pointer; }
+textarea.field-input { resize: vertical; line-height: 1.7; }
+.field-error { color: #ff5666; font-size: 12px; margin-top: 7px; display: none; }
+.field-error.show { display: block; }
+.field-2col { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
+
+/* Checkbox */
+.agree-label { display: flex; align-items: flex-start; gap: 12px; cursor: pointer; }
+.agree-label input[type="checkbox"] { width: 20px; height: 20px; margin-top: 2px; accent-color: #E60012; cursor: pointer; flex-shrink: 0; }
+.agree-label span { font-size: 13.5px; line-height: 1.7; color: rgba(255,255,255,0.7); }
+
+/* Submit Button */
+.btn-submit {
+  align-self: flex-start; display: flex; align-items: center; gap: 14px;
+  padding: 20px 60px; background: #E60012; color: #fff; border: none;
+  font-weight: 700; font-size: 17px; font-family: inherit; cursor: pointer;
+  transition: background 0.2s;
+}
+.btn-submit:hover { background: #ff1322; }
+.btn-submit .arrow { font-family: 'Archivo', sans-serif; }
+
+/* Success State */
+.success-panel {
+  display: none; padding: 64px 48px; background: #141416;
+  border: 1px solid rgba(255,255,255,0.1); text-align: center;
+}
+.success-panel.show { display: block; }
+.success-icon {
+  display: inline-grid; place-items: center;
+  width: 72px; height: 72px; border: 2px solid #E60012; border-radius: 50%;
+  font-family: 'Archivo', sans-serif; font-weight: 900; font-size: 32px;
+  color: #E60012; margin-bottom: 26px;
+}
+.success-title { font-weight: 900; font-size: 30px; margin-bottom: 16px; }
+.success-body { font-size: 15px; line-height: 1.95; color: rgba(255,255,255,0.7); max-width: 460px; margin: 0 auto 32px; }
+.btn-outline-back {
+  display: inline-flex; align-items: center; gap: 12px;
+  padding: 17px 44px; border: 1.5px solid rgba(255,255,255,0.4);
+  color: #fff; font-weight: 700; font-size: 15px; transition: all 0.2s;
+}
+.btn-outline-back:hover { border-color: #E60012; color: #E60012; }
+
+/* Sidebar */
+.contact-aside {
+  background: #141416; border: 1px solid rgba(255,255,255,0.09);
+  padding: 34px 30px;
+}
+.aside-heading {
+  font-family: 'Archivo', sans-serif; font-weight: 800; font-size: 12px;
+  letter-spacing: 2px; color: #fff; padding-bottom: 16px;
+  border-bottom: 2px solid #E60012; margin-bottom: 24px;
+}
+.aside-tel {
+  font-family: 'Archivo', sans-serif; font-weight: 800; font-size: 32px;
+  color: #fff; line-height: 1.1;
+}
+.aside-sub { font-size: 13px; color: rgba(255,255,255,0.55); margin-top: 8px; }
+.aside-info { display: flex; flex-direction: column; gap: 18px; margin-top: 30px; }
+.aside-info-label { font-size: 12px; font-weight: 700; color: #E60012; }
+.aside-info-val { font-size: 14px; color: rgba(255,255,255,0.86); line-height: 1.7; margin-top: 6px; }
+
+/* Footer */
+footer { background: #08080a; border-top: 1px solid rgba(255,255,255,0.06); padding: 48px; }
+.footer-inner { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 24px; }
+.footer-logo { font-family: 'Archivo', sans-serif; font-weight: 900; font-size: 18px; letter-spacing: 0.04em; }
+.footer-logo span { color: #E60012; }
+.footer-copy { font-size: 11px; color: rgba(255,255,255,0.25); }
+
+@media (max-width: 1024px) {
+  header { padding: 0 24px; }
+  nav { display: none; }
+  .nav-burger { display: flex; }
+  .page-banner { height: 280px; padding-bottom: 36px; }
+  .page-banner-content { padding: 0 24px; }
+  .page-title { font-size: 38px; }
+  .form-section { padding: 60px 24px 80px; }
+  .form-section-inner { grid-template-columns: 1fr; gap: 40px; }
+  footer { padding: 40px 24px; }
+  .footer-inner { flex-direction: column; align-items: flex-start; }
+}
+
+@media (max-width: 640px) {
+  .page-title { font-size: 30px; }
+  .field-2col { grid-template-columns: 1fr; gap: 20px; }
+  .btn-submit { padding: 18px 36px; font-size: 15px; }
+  .success-panel { padding: 40px 24px; }
+}
+</style>
+</head>
+<body>
+
+<header>
+  <a href="index.html" class="hdr-logo">SHO<span>HA</span></a>
+  <nav>
+    <a href="index.html">会社情報</a>
+    <a href="works.html">施工実績</a>
+    <a href="recruit.html">募集要項</a>
+    <a href="contact.html" class="nav-cta">お問い合わせ</a>
+  </nav>
+  <button class="nav-burger" onclick="toggleMenu()" aria-label="メニュー">
+    <span></span><span></span><span></span>
+  </button>
+</header>
+
+<div class="mobile-menu" id="mobileMenu">
+  <nav>
+    <a href="index.html" onclick="closeMenu()">会社情報</a>
+    <a href="works.html" onclick="closeMenu()">施工実績</a>
+    <a href="recruit.html" onclick="closeMenu()">募集要項</a>
+    <a href="contact.html" class="nav-cta" onclick="closeMenu()">お問い合わせ</a>
+  </nav>
+</div>
+
+<!-- Page Banner -->
+<div class="page-banner">
+  <div class="page-banner-bg"></div>
+  <div class="page-banner-accent"></div>
+  <div class="page-banner-bg-text">CONTACT</div>
+  <div class="page-banner-content">
+    <div class="breadcrumb">
+      <a href="index.html">TOP</a>
+      <span class="breadcrumb-sep">/</span>
+      <span>CONTACT</span>
+    </div>
+    <p class="banner-en">CONTACT</p>
+    <h1 class="page-title">お問い合わせ</h1>
+    <p class="page-subtitle">工事のご依頼・採用・協力会社募集など、お気軽にご相談ください。</p>
+  </div>
+</div>
+
+<!-- Form Section -->
+<section class="form-section">
+  <div class="form-section-inner">
+
+    <!-- Form (shown until submitted) -->
+    <div id="formWrap">
+      <form id="contactForm" novalidate>
+
+        <div>
+          <label class="field-label" for="category">お問い合わせ区分<span class="field-required">必須</span></label>
+          <select class="field-input" id="category" name="category">
+            <option value="工事のご依頼">工事のご依頼</option>
+            <option value="採用について">採用について</option>
+            <option value="協力会社募集">協力会社募集</option>
+            <option value="イベント設営について">イベント設営について</option>
+            <option value="その他">その他</option>
+          </select>
+        </div>
+
+        <div class="field-2col">
+          <div>
+            <label class="field-label" for="name">お名前<span class="field-required">必須</span></label>
+            <input class="field-input" type="text" id="name" name="name" placeholder="山田 太郎" autocomplete="name">
+            <p class="field-error" id="err-name">お名前をご入力ください</p>
+          </div>
+          <div>
+            <label class="field-label" for="company">会社名</label>
+            <input class="field-input" type="text" id="company" name="company" placeholder="株式会社〇〇" autocomplete="organization">
+          </div>
+        </div>
+
+        <div class="field-2col">
+          <div>
+            <label class="field-label" for="email">メールアドレス<span class="field-required">必須</span></label>
+            <input class="field-input" type="email" id="email" name="email" placeholder="example@showa.co.jp" autocomplete="email">
+            <p class="field-error" id="err-email">正しいメールアドレスをご入力ください</p>
+          </div>
+          <div>
+            <label class="field-label" for="tel">電話番号<span class="field-required">必須</span></label>
+            <input class="field-input" type="tel" id="tel" name="tel" placeholder="090-0000-0000" autocomplete="tel">
+            <p class="field-error" id="err-tel">電話番号をご入力ください</p>
+          </div>
+        </div>
+
+        <div>
+          <label class="field-label" for="message">お問い合わせ内容<span class="field-required">必須</span></label>
+          <textarea class="field-input" id="message" name="message" rows="6" placeholder="お問い合わせ内容をご記入ください"></textarea>
+          <p class="field-error" id="err-message">お問い合わせ内容をご入力ください</p>
+        </div>
+
+        <div>
+          <label class="agree-label">
+            <input type="checkbox" id="agree">
+            <span>個人情報の取り扱いについて同意のうえ送信します。ご入力いただいた情報はお問い合わせ対応の目的にのみ使用します。</span>
+          </label>
+          <p class="field-error" id="err-agree">同意のチェックが必要です</p>
+        </div>
+
+        <button type="submit" class="btn-submit">
+          送信する <span class="arrow">→</span>
+        </button>
+
+      </form>
+    </div>
+
+    <!-- Success State -->
+    <div class="success-panel" id="successPanel">
+      <div class="success-icon">✓</div>
+      <h2 class="success-title">送信が完了しました</h2>
+      <p class="success-body">お問い合わせいただきありがとうございます。担当者より2〜3営業日以内にご連絡いたします。</p>
+      <a href="index.html" class="btn-outline-back">トップに戻る</a>
+    </div>
+
+    <!-- Sidebar -->
+    <aside class="contact-aside">
+      <h3 class="aside-heading">お電話でのお問い合わせ</h3>
+      <p class="aside-tel">0438-53-6065</p>
+      <p class="aside-sub">FAX 0438-53-6066</p>
+      <p class="aside-sub">営業時間 09:00〜18:00（日祝定休日）</p>
+      <div class="aside-info">
+        <div>
+          <p class="aside-info-label">所在地</p>
+          <p class="aside-info-val">〒299-0009<br>千葉県木更津市金田東6-31-8<br>フレラックス木更津</p>
+        </div>
+        <div>
+          <p class="aside-info-label">事業内容</p>
+          <p class="aside-info-val">足場工事／鳶工事／プラント配管／鍛冶工事／イベント関係 ほか</p>
+        </div>
+      </div>
+    </aside>
+
+  </div>
+</section>
+
+<!-- Footer -->
+<footer>
+  <div class="footer-inner">
+    <div>
+      <div class="footer-logo">SHO<span>HA</span></div>
+      <div style="font-size:12px;color:rgba(255,255,255,0.35);line-height:1.8;margin-top:12px;">
+        株式会社昭波<br>
+        〒299-0009 千葉県木更津市金田東6-31-8 フレラックス木更津<br>
+        TEL: 0438-53-6065
+      </div>
+    </div>
+    <div class="footer-copy">© 2025 株式会社昭波. All rights reserved.</div>
+  </div>
+</footer>
+
+<script>
+function toggleMenu() {
+  document.getElementById('mobileMenu').classList.toggle('open');
+}
+function closeMenu() {
+  document.getElementById('mobileMenu').classList.remove('open');
+}
+
+// URL hash → pre-select category
+(function() {
+  const map = { construction: '工事のご依頼', recruit: '採用について', partner: '協力会社募集', event: 'イベント設営について' };
+  const h = location.hash.replace('#', '');
+  if (map[h]) document.getElementById('category').value = map[h];
+})();
+
+// Form validation & submit
+document.getElementById('contactForm').addEventListener('submit', function(e) {
+  e.preventDefault();
+  const name = document.getElementById('name').value.trim();
+  const email = document.getElementById('email').value.trim();
+  const tel = document.getElementById('tel').value.trim();
+  const message = document.getElementById('message').value.trim();
+  const agree = document.getElementById('agree').checked;
+
+  let valid = true;
+
+  function setErr(id, inputId, show) {
+    document.getElementById(id).classList.toggle('show', show);
+    document.getElementById(inputId).classList.toggle('error', show);
+    if (show) valid = false;
+  }
+
+  setErr('err-name', 'name', !name);
+  setErr('err-email', 'email', !/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email));
+  setErr('err-tel', 'tel', !tel);
+  setErr('err-message', 'message', !message);
+  document.getElementById('err-agree').classList.toggle('show', !agree);
+  if (!agree) valid = false;
+
+  if (!valid) return;
+
+  // Success
+  document.getElementById('formWrap').style.display = 'none';
+  document.getElementById('successPanel').classList.add('show');
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+});
+</script>
+</body>
+</html>
